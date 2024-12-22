@@ -2,6 +2,9 @@ package com.spring.jdbc.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,6 +26,7 @@ public class StudentDaoImpl implements StudentDao {
 		
 		return jdbcTemplate;
 	}
+	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
@@ -71,6 +75,14 @@ public class StudentDaoImpl implements StudentDao {
 				}
 			},stdId);
 			return student;
+	}
+
+
+	@Override
+	public List<Student> getAllStudents() {
+		String query = "select * from tbl_user";
+		List<Student> list = this.jdbcTemplate.query(query, new RawMapperImpl());
+		return list;
 	}
 	
 }
